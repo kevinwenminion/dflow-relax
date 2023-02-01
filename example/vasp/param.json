@@ -13,8 +13,8 @@
                               "relax_vol":       true,
                               "ediff":           1e-6,
                               "ediffg":         -0.01,
-                              "encut":           650,
-                              "kspacing":        0.1,
+                              "encut":           400,
+                              "kspacing":        0.2,
                               "kgamma":          false}
 	}
 }

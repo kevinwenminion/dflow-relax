@@ -28,9 +28,14 @@ from dflow.plugins.bohrium import BohriumContext, BohriumExecutor
 from dpdata.periodic_table import Element
 from monty.serialization import loadfn
 
-from dpgen.auto_test.common_equi import (make_equi, post_equi)
+try:
+    from dpgen.auto_test.common_equi import (make_equi, post_equi)
+except:
+    pass
+
 from dflow.python import upload_packages
 
+import shutil
 upload_packages.append(__file__)
 
 
@@ -81,9 +86,7 @@ class RelaxMakeVASP(OP):
         for ii in conf_dirs:
             relaxation = os.path.join(ii, 'relaxation')
             relax_task = os.path.join(relaxation, 'relax_task')
-            task_list.append(relax_task)
-
-            # shutil.copytree(relaxtaion, 'relaxation')
+            task_list.append(os.path.join(work_d, relax_task))
 
         all_jobs = task_list
         njobs = len(all_jobs)
@@ -111,25 +114,25 @@ class VASP(OP):
     @classmethod
     def get_input_sign(cls):
         return OPIOSign({
-            'input_relax': Artifact(Path),
+            'input_vasp': Artifact(Path),
             'run_command': str
         })
 
     @classmethod
     def get_output_sign(cls):
         return OPIOSign({
-            'output_relax': Artifact(Path, sub_path=False)
+            'output_vasp': Artifact(Path, sub_path=False)
         })
 
     @OP.exec_sign_check
     def execute(self, op_in: OPIO) -> OPIO:
         cwd = os.getcwd()
-        os.chdir(op_in["input_relax"])
+        os.chdir(op_in["input_vasp"])
         cmd = op_in["run_command"]
         subprocess.call(cmd, shell=True)
         os.chdir(cwd)
         op_out = OPIO({
-            "output_relax": op_in["input_relax"]
+            "output_vasp": op_in["input_vasp"]
         })
         return op_out
 
@@ -145,25 +148,25 @@ class RelaxPostVASP(OP):
     @classmethod
     def get_input_sign(cls):
         return OPIOSign({
-            'input_post': Artifact(Path),
-            'path': str
+            'input_post': Artifact(Path, sub_path=False),
+            'path': str,
+            'input_all': Artifact(Path, sub_path=False)
         })
 
     @classmethod
     def get_output_sign(cls):
         return OPIOSign({
-            'output_post': Artifact(Path)
+            'output_all': Artifact(Path, sub_path=False)
         })
 
     @OP.exec_sign_check
     def execute(self, op_in: OPIO) -> OPIO:
-        os.chdir(op_in["input_post"])
-        cwd = os.getcwd()
+        os.chdir(str(op_in['input_all'])+op_in['path'])
+        shutil.copytree(str(op_in['input_post'])+op_in['path'], './', dirs_exist_ok=True)
 
-        post_equi(loadfn("param.json")["structures"], loadfn("param.json")["interaction"])
-        os.chdir(cwd)
+        post_equi(loadfn('param.json')["structures"], loadfn('param.json')["interaction"])
 
         op_out = OPIO({
-            "output_post": op_in["input_post"]
+            'output_all': Path(str(op_in["input_all"])+op_in['path'])
         })
         return op_out

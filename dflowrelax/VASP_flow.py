@@ -108,7 +108,7 @@ def main_vasp():
     relaxpost = Step(
         name="Relaxpost",
         template=PythonOPTemplate(RelaxPostVASP, image=dpgen_image_name, command=["python3"]),
-        artifacts={"input_post": upload_artifact(work_dir)},
+        artifacts={"input_post": vasp_cal.outputs.artifacts["output_vasp"], "input_all": relaxmake.outputs.artifacts["output"]},
         parameters={"path": cwd}
     )
     wf.add(relaxpost)
@@ -119,4 +119,4 @@ def main_vasp():
         time.sleep(4)
     assert (wf.query_status() == 'Succeeded')
     step = wf.query_step(name="Relaxpost")[0]
-    download_artifact(step.outputs.artifacts["output_post"])
+    download_artifact(step.outputs.artifacts["output_all"])
