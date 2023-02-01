@@ -1,0 +1,14 @@
+{
+    "structures":            ["confs/std-*"],
+    "interaction": {
+            "type":           "abacus",
+            "incar":          "INPUT",
+            "orbfile":        "Al_gga_10au_100Ry_3s3p2d.orb"
+	},
+    "relaxation": {
+            "cal_type":       "relaxation",
+            "cal_setting":   {"relax_pos":       true,
+                              "relax_shape":     true,
+                              "relax_vol":       true}
+	}
+}
