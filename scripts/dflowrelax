@@ -36,5 +36,5 @@ if args.vasp:
     main_vasp()
 elif args.abacus:
     main_abacus()
-elif args.lammmps:
+elif args.lammps:
     main_lammps()
