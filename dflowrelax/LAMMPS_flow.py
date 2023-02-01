@@ -100,7 +100,7 @@ def main_lammps():
         artifacts={"input_lammps": relaxmake.outputs.artifacts["jobs"]},
         with_param=argo_range(relaxmake.outputs.parameters["njobs"]),
         key="LAMMPS-Cal-{{item}}",
-        executor=dispatcher_executor_cpu
+        executor=dispatcher_executor_gpu
     )
     wf.add(lammps_cal)
 
