@@ -22,7 +22,7 @@ sys.path.append("../dflowrelax")
 
 from dflowrelax.VASP_flow import main_vasp
 #from dflowrelax.ABACUS_flow import main_abacus
-#from dflowrelax.LAMMPS_flow import main_lammps
+from dflowrelax.LAMMPS_flow import main_lammps
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--vasp", help="Using VASP to perform relaxation",

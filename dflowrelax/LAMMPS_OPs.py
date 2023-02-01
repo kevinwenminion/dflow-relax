@@ -39,7 +39,7 @@ import shutil
 upload_packages.append(__file__)
 
 
-class RelaxMakeVASP(OP):
+class RelaxMakeLAMMPS(OP):
     """
     class for making calculation tasks
     """
@@ -103,9 +103,9 @@ class RelaxMakeVASP(OP):
         return op_out
 
 
-class VASP(OP):
+class LAMMPS(OP):
     """
-    class for VASP calculation
+    class for LAMMPS calculation
     """
 
     def __init__(self, infomode=1):
@@ -114,30 +114,30 @@ class VASP(OP):
     @classmethod
     def get_input_sign(cls):
         return OPIOSign({
-            'input_vasp': Artifact(Path),
-            'run_command': str
+            'input_lammps': Artifact(Path)
         })
 
     @classmethod
     def get_output_sign(cls):
         return OPIOSign({
-            'output_vasp': Artifact(Path, sub_path=False)
+            'output_lammps': Artifact(Path, sub_path=False)
         })
 
     @OP.exec_sign_check
     def execute(self, op_in: OPIO) -> OPIO:
         cwd = os.getcwd()
-        os.chdir(op_in["input_vasp"])
-        cmd = op_in["run_command"]
+        os.chdir(op_in["input_lammps"])
+        #cmd = op_in["run_command"]
+        cmd = "lmp -in in.lammps"
         subprocess.call(cmd, shell=True)
         os.chdir(cwd)
         op_out = OPIO({
-            "output_vasp": op_in["input_vasp"]
+            "output_lammps": op_in["input_lammps"]
         })
         return op_out
 
 
-class RelaxPostVASP(OP):
+class RelaxPostLAMMPS(OP):
     """
     class for analyzing calculation results
     """
