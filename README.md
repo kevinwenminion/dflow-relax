@@ -1,7 +1,7 @@
 # dflow-relax
 ## Relaxation with VASP, ABACUS, and LAMMPS in autotest.
 This workflow is a part of [AI Square](https://aissquare.com/). We want to refactor the autotest code based on dflow. 
-This is "relaxation" (structure optimization) using VASP, LAMMPS, or ABACUS.
+This is "relaxation" (structure optimization) using VASP, ABACUS, or LAMMPS.
 
 ## Easy Install：
 ```
@@ -21,7 +21,7 @@ If you want to use ABACUS code, like the folder `abacus_demo`. You need to prepa
 dflowrelax --abacus
 ```
 
-If you want to use LAMMPS to do MD calculation, like the folder `dp_demo`. You need to prepare `POSCAR`, `frozen_model.pb`, `global.json` and `param.json`, then:
+If you want to use LAMMPS to do MD calculation, like the folder `dp_demo`. You need to prepare `conf.lmp`, `frozen_model.pb`, `global.json` and `param.json`, then:
 ```
 dflowrelax --lammps
 ```
