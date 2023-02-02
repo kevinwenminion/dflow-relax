@@ -1,6 +1,6 @@
 # dflow-relax
 ## Relaxation with VASP, ABACUS, and LAMMPS in autotest.
-This workflow is a part of [AI Square](https://aissquare.com/). We want to refract the autotest code based on dflow. 
+This workflow is a part of [AI Square](https://aissquare.com/). We want to refactor the autotest code based on dflow. 
 This is "relaxation" (structure optimization) using VASP, LAMMPS, or ABACUS.
 
 ## Easy Install：
