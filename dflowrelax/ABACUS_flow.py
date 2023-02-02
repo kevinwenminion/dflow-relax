@@ -93,8 +93,9 @@ def main_abacus():
     wf.add(relaxmake)
 
     abacus = PythonOPTemplate(ABACUS,
-                            slices=Slices("{{item}}", input_artifact=["input_abacus"], output_artifact=["output_abacus"]),
-                            image=abacus_image_name, command=["python3"])
+                              slices=Slices("{{item}}", input_artifact=["input_abacus"],
+                                            output_artifact=["output_abacus"]),
+                              image=abacus_image_name, command=["python3"])
     abacus_cal = Step(
         name="ABACUS-Cal",
         template=abacus,
@@ -109,7 +110,8 @@ def main_abacus():
     relaxpost = Step(
         name="Relaxpost",
         template=PythonOPTemplate(RelaxPostABACUS, image=dpgen_image_name, command=["python3"]),
-        artifacts={"input_post": abacus_cal.outputs.artifacts["output_abacus"], "input_all": relaxmake.outputs.artifacts["output"]},
+        artifacts={"input_post": abacus_cal.outputs.artifacts["output_abacus"],
+                   "input_all": relaxmake.outputs.artifacts["output"]},
         parameters={"path": cwd}
     )
     wf.add(relaxpost)

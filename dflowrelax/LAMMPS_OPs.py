@@ -127,7 +127,6 @@ class LAMMPS(OP):
     def execute(self, op_in: OPIO) -> OPIO:
         cwd = os.getcwd()
         os.chdir(op_in["input_lammps"])
-        #cmd = op_in["run_command"]
         cmd = "lmp -in in.lammps"
         subprocess.call(cmd, shell=True)
         os.chdir(cwd)

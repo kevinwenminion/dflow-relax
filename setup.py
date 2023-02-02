@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="dflow-relax",
-    version="0.0.0",
+    version="0.0.1",
     author="Tongqi Wen",
     author_email="tongqwen@hku.hk",
     description="A structure relaxation package based on dflow",

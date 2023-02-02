@@ -1,7 +1,7 @@
 {
-    "email": "tongqwen@hku.hk",
-    "password": "D62Bg31b,",
-    "program_id": 11331,
+    "email": "",
+    "password": "",
+    "program_id": ,
     "vasp_run_command":"bash -c \"source /opt/intel/oneapi/setvars.sh && ulimit -s unlimited && mpirun -n 32 /opt/vasp.5.4.4/bin/vasp_std \"",
     "dpgen_image_name":"registry.dp.tech/dptech/dpgen:0.11.0",
     "dpmd_image_name": "registry.dp.tech/dptech/deepmd-kit:2.1.5-cuda11.6",

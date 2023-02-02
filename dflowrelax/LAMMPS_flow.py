@@ -92,8 +92,9 @@ def main_lammps():
     wf.add(relaxmake)
 
     lammps = PythonOPTemplate(LAMMPS,
-                            slices=Slices("{{item}}", input_artifact=["input_lammps"], output_artifact=["output_lammps"]),
-                            image=dpmd_image_name, command=["python3"])
+                              slices=Slices("{{item}}", input_artifact=["input_lammps"],
+                                            output_artifact=["output_lammps"]),
+                              image=dpmd_image_name, command=["python3"])
     lammps_cal = Step(
         name="LAMMPS-Cal",
         template=lammps,
@@ -107,7 +108,8 @@ def main_lammps():
     relaxpost = Step(
         name="Relaxpost",
         template=PythonOPTemplate(RelaxPostLAMMPS, image=dpgen_image_name, command=["python3"]),
-        artifacts={"input_post": lammps_cal.outputs.artifacts["output_lammps"], "input_all": relaxmake.outputs.artifacts["output"]},
+        artifacts={"input_post": lammps_cal.outputs.artifacts["output_lammps"],
+                   "input_all": relaxmake.outputs.artifacts["output"]},
         parameters={"path": cwd}
     )
     wf.add(relaxpost)
